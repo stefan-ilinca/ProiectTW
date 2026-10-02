@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+    <title>FlowForge - Stage 1</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">F</span>
+                <h1>FlowForge</h1>
+            </div>
+            <p class="app-description">
+                Build and manage automated workflows from one place.
+            </p>
+            <p class="app-count">
+                3 workflows · 2 active
+            </p>
+        </div>
+    </header>
+    <main class="container">
+        <!-- CREATE WORKFLOW -->
+        <section class="panel create-panel">
+            <div class="section-header">
+                <p class="section-label">AUTOMATION</p>
+                <h2>Create workflow</h2>
+                <p class="section-description">
+                    Create a new automation and choose how it will be triggered.
+                </p>
+            </div>
+            <form class="item-form">
+                <label for="workflow-name">
+                    Workflow name
+                    <input
+                        id="workflow-name"
+                        name="workflow-name"
+                        type="text"
+                        placeholder="e.g. Lead qualification"
+                        maxlength="100"
+                    >
+                </label>
+                <label for="workflow-trigger">
+                    Trigger
+                    <select
+                        id="workflow-trigger"
+                        name="workflow-trigger"
+                    >
+                        <option value="webhook">
+                            Webhook
+                        </option>
+                        <option value="schedule">
+                            Schedule
+                        </option>
+                        <option value="manual">
+                            Manual
+                        </option>
+                    </select>
+                </label>
+                <button type="submit">
+                    Create workflow
+                </button>
+            </form>
+        </section>
+        <!-- WORKFLOW LIST -->
+        <section class="panel workflows-panel">
+            <div class="section-header workflows-heading">
+                <div>
+                    <p class="section-label">WORKFLOWS</p>
+                    <h2>Your workflows</h2>
+                </div>
+                <span class="workflow-total">
+                    3 total
+                </span>
+            </div>
+            <!--
+                Empty state for a future stage:
+                <p class="empty">
+                    No workflows available.
+                </p>
+            -->
+            <ul class="item-list">
+                <!-- WORKFLOW 1 -->
+                <li class="item-card">
+                    <div class="workflow-info">
+                        <div class="workflow-title-row">
+                            <span class="workflow-icon">
+                                ↗
+                            </span>
+                            <div>
+                                <h3>
+                                    Lead Qualification
+                                </h3>
+                                <p class="workflow-description">
+                                    Qualify incoming leads automatically.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="workflow-meta">
+                            <span class="badge badge-webhook">
+                                Webhook
+                            </span>
+                        </div>
+                    </div>
+                    <div class="workflow-status active-status">
+                        <span class="status-dot"></span>
+                        <span class="status">
+                            Active
+                        </span>
+                    </div>
+                </li>
+                <!-- WORKFLOW 2 -->
+                <li class="item-card">
+                    <div class="workflow-info">
+                        <div class="workflow-title-row">
+                            <span class="workflow-icon">
+                                ◷
+                            </span>
+                            <div>
+                                <h3>
+                                    Daily Sales Report
+                                </h3>
+                                <p class="workflow-description">
+                                    Generate a daily sales summary.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="workflow-meta">
+                            <span class="badge badge-schedule">
+                                Schedule
+                            </span>
+                        </div>
+                    </div>
+                    <div class="workflow-status active-status">
+                        <span class="status-dot"></span>
+                        <span class="status">
+                            Active
+                        </span>
+                    </div>
+                </li>
+                <!-- WORKFLOW 3 - FINISHED -->
+                <li class="item-card done">
+                    <div class="workflow-info">
+                        <div class="workflow-title-row">
+                            <span class="workflow-icon">
+                                ↻
+                            </span>
+                            <div>
+                                <h3>
+                                    Customer Data Sync
+                                </h3>
+                                <p class="workflow-description">
+                                    Synchronize customer data manually.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="workflow-meta">
+                            <span class="badge badge-manual">
+                                Manual
+                            </span>
+                        </div>
+                    </div>
+                    <div class="workflow-status">
+                        <span class="status">
+                            Inactive
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer class="app-footer">
+        <p>
+            FlowForge · Web Technologies Project · 2026
+        </p>
+    </footer>
+</body>
+</html>
