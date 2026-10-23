@@ -67,5 +67,13 @@ The styles from Stage 1 are reused in `frontend/src/App.css`, with the layout re
 | S2-R5 | Original array remains unchanged after add | workflows.js | Check console output |
 | S2-R6 | README Stage 2 section and AI log exist | README.md, ai-log/etapa-02.md | Read files |
 | S2-R7 | Stage 2 commit published | GitHub | Check commit history |
-
-La final, în coloana Where, profesorul vrea de fapt permalink-uri către liniile exacte din GitHub, deci după ce dai primul push, înlocuim README.md, index.html etc. cu permalink-urile reale. TW_Etapa1_Ghid_1f556a65fb2712807e91088208ff467e.pdf
+## Stage 3 checklist
+| ID | Requirement | Where (permalink) | How to check |
+|---|---|---|---|
+| S3-R1 | npm run dev starts without errors | [frontend/package.json](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/package.json#L6-L11) | npm install, npm run dev |
+| S3-R2 | App name and counter computed from data | [frontend/src/App.jsx#L8-L23](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/src/App.jsx#L8-L23) | Edit data, save, watch the header |
+| S3-R3 | Data from README, not from the example | [frontend/src/App.jsx#L1-L5](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/src/App.jsx#L1-L5) | Compare with the sample data in README |
+| S3-R4 | Stage 1 styles reused | [frontend/src/App.css](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/src/App.css#L95-L105) | Look at the page |
+| S3-R5 | node_modules ignored, build passes | [frontend/.gitignore](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/.gitignore#L10-L11) | npm run build |
+| S3-R6 | README Stage 3 section and AI log | [README.md](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/README.md), [ai-log/etapa-03.md](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/ai-log/etapa-03.md) | Read files |
+| S3-R7 | Commit "Stage 3" pushed | [commit 9b055ca](https://github.com/stefan-ilinca/ProiectTW/commit/9b055ca998bcdf4a568b104d015ec1fcac73ee45) | Check commit history |
