@@ -84,3 +84,13 @@ Adding an object to the array in `App.jsx` produces one more card without any ot
 | S3-R5 | node_modules ignored, build passes | [frontend/.gitignore](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/frontend/.gitignore#L10-L11) | npm run build |
 | S3-R6 | README Stage 3 section and AI log | [README.md](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/README.md), [ai-log/etapa-03.md](https://github.com/stefan-ilinca/ProiectTW/blob/9b055ca998bcdf4a568b104d015ec1fcac73ee45/ai-log/etapa-03.md) | Read files |
 | S3-R7 | Commit "Stage 3" pushed | [commit 9b055ca](https://github.com/stefan-ilinca/ProiectTW/commit/9b055ca998bcdf4a568b104d015ec1fcac73ee45) | Check commit history |
+## Stage 4 checklist
+| ID | Requirement | Where (permalink) | How to check |
+|---|---|---|---|
+| S4-R1 | 2+ components in src/components/ | [frontend/src/components/](https://github.com/stefan-ilinca/ProiectTW/tree/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components) | Open folder |
+| S4-R2 | Card receives data through props | [WorkflowCard.jsx#L21-L36](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components/WorkflowCard.jsx#L21-L36) | Read |
+| S4-R3 | map + key={id}, no console warnings | [WorkflowList.jsx#L9-L15](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components/WorkflowList.jsx#L9-L15) | F12, Console |
+| S4-R4 | Message for empty list | [WorkflowList.jsx#L5-L7](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components/WorkflowList.jsx#L5-L7) | Set array to [] in App.jsx |
+| S4-R5 | State changes the card look | [WorkflowCard.jsx#L25](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components/WorkflowCard.jsx#L25), [#L40-L47](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/frontend/src/components/WorkflowCard.jsx#L40-L47) | Toggle an active flag |
+| S4-R6 | README Stage 4 section and AI log | [README.md](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/README.md), [ai-log/etapa-04.md](https://github.com/stefan-ilinca/ProiectTW/blob/59ca1085db6f8a0b3ab5867a4688400aa165c85f/ai-log/etapa-04.md) | Read files |
+| S4-R7 | Commit "Stage 4" pushed | [commit 59ca108](https://github.com/stefan-ilinca/ProiectTW/commit/59ca1085db6f8a0b3ab5867a4688400aa165c85f) | Check commit history |
