@@ -30,13 +30,15 @@ The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be open
 | ChatGPT | Project idea, data model, HTML structure and CSS guidance for Stage 1 |
 | ChatGPT | JavaScript data logic, immutable functions and console tests for Stage 2 |
 | Claude Code | Vite project setup, porting the mockup to JSX and troubleshooting npm for Stage 3 |
+| Claude Code | Splitting the card and the list into components with props for Stage 4 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
 - [x] Stage 2: data logic in JavaScript
 - [x] Stage 3: Vite and React project
-- [ ] Stage 4: data-driven components
-- [ ] Stage 5+: interaction, API, backend, database and authentication
+- [x] Stage 4: components rendered from data
+- [ ] Stage 5: local state and events
+- [ ] Stage 6+: API, backend, database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
@@ -46,6 +48,11 @@ The app now lives in `frontend/`, built with Vite. The data from Stage 2
 moved into the main component (`frontend/src/App.jsx`); the list is still printed raw as JSON.
 The header shows the total number of workflows and how many are active, both computed from the array.
 The styles from Stage 1 are reused in `frontend/src/App.css`, with the layout reduced to one column until the form returns in Stage 7.
+## Stage 4: components
+The list is rendered from the data, through two components in `frontend/src/components/`:
+- `WorkflowList` receives the whole array and renders one card per item with `map` and `key={workflow.id}`; an empty array shows the message "No workflows available."
+- `WorkflowCard` receives a single workflow through props and displays it; the `active` flag chooses the card classes and the status text, and the trigger labels, icons and descriptions are kept in a lookup table, separate from the values stored in the data.
+Adding an object to the array in `App.jsx` produces one more card without any other change.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|

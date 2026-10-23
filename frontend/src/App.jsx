@@ -1,3 +1,5 @@
+import WorkflowList from "./components/WorkflowList.jsx";
+
 const workflows = [
   { id: 1, title: "Lead Qualification", active: true, trigger: "webhook" },
   { id: 2, title: "Daily Sales Report", active: true, trigger: "schedule" },
@@ -32,8 +34,7 @@ export default function App() {
             </div>
             <span className="workflow-total">{workflows.length} total</span>
           </div>
-          {/* Temporary: raw data; the card components come in Stage 4 */}
-          <pre>{JSON.stringify(workflows, null, 2)}</pre>
+          <WorkflowList workflows={workflows} />
         </section>
       </main>
       <footer className="app-footer">
