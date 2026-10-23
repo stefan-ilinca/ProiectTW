@@ -16,24 +16,36 @@ The following sample data will be used across all stages:
 2. Daily Sales Report — active — Schedule
 3. Customer Data Sync — inactive — Manual
 ## How to run
-Open `index.html` directly in a browser.
-No build step and no server are required for Stage 1.
+```
+cd frontend
+npm install
+npm run dev
+```
+Then open the address printed in the terminal (http://localhost:5173).
+Node.js 20 or newer is required.
+The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be opened directly in a browser.
 ## AI usage
 | Tool | Used for |
 |---|---|
 | ChatGPT | Project idea, data model, HTML structure and CSS guidance for Stage 1 |
 | ChatGPT | JavaScript data logic, immutable functions and console tests for Stage 2 |
+| Claude Code | Vite project setup, porting the mockup to JSX and troubleshooting npm for Stage 3 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
 - [x] Stage 2: data logic in JavaScript
-- [ ] Stage 3: React application
+- [x] Stage 3: Vite and React project
 - [ ] Stage 4: data-driven components
 - [ ] Stage 5+: interaction, API, backend, database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
 The functions use `map`, `filter`, `find`, and `reduce` to list titles, count active workflows, search by title, add validated items, toggle state, and delete items without mutating the original array.
+## Stage 3: Vite and React project
+The app now lives in `frontend/`, built with Vite. The data from Stage 2
+moved into the main component (`frontend/src/App.jsx`); the list is still printed raw as JSON.
+The header shows the total number of workflows and how many are active, both computed from the array.
+The styles from Stage 1 are reused in `frontend/src/App.css`, with the layout reduced to one column until the form returns in Stage 7.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|
