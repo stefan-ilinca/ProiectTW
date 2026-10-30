@@ -31,14 +31,16 @@ The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be open
 | ChatGPT | JavaScript data logic, immutable functions and console tests for Stage 2 |
 | Claude Code | Vite project setup, porting the mockup to JSX and troubleshooting npm for Stage 3 |
 | Claude Code | Splitting the card and the list into components with props for Stage 4 |
+| Claude Code | Moving the list into state, toggle and delete handlers, and the light / dark switch for Stage 5 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
 - [x] Stage 2: data logic in JavaScript
 - [x] Stage 3: Vite and React project
 - [x] Stage 4: components rendered from data
-- [ ] Stage 5: local state and events
-- [ ] Stage 6+: API, backend, database and authentication
+- [x] Stage 5: local state and events
+- [ ] Stage 6: loading data from a mock API
+- [ ] Stage 7+: form, backend, database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
@@ -53,6 +55,15 @@ The list is rendered from the data, through two components in `frontend/src/comp
 - `WorkflowList` receives the whole array and renders one card per item with `map` and `key={workflow.id}`; an empty array shows the message "No workflows available."
 - `WorkflowCard` receives a single workflow through props and displays it; the `active` flag chooses the card classes and the status text, and the trigger labels, icons and descriptions are kept in a lookup table, separate from the values stored in the data.
 Adding an object to the array in `App.jsx` produces one more card without any other change.
+## Stage 5: local state and events
+The list lives in React state. Checking and deleting work from the page,
+and the counters in the header follow automatically. A button in the
+header switches between light and dark mode. Changes are lost on refresh,
+which is what stage 6 and stage 10 fix.
+- `App` owns the list (`useState(INITIAL_WORKFLOWS)`) and is the only place that changes it: `handleToggle` builds a new array with `map` and a copy of the changed workflow, `handleDelete` builds a new array with `filter`, both through `setWorkflows((prev) => ...)`.
+- `WorkflowList` passes `onToggle` and `onDelete` down unchanged; `WorkflowCard` has a controlled checkbox bound to `active` and a Delete button with an `aria-label` that names the workflow.
+- The header counter is derived from the list on every render, not kept in a separate state.
+- The theme is kept in state and written as `data-theme` on `<html>`; the CSS only redefines the color variables, so the system theme still applies until the user picks one.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|

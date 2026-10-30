@@ -26,6 +26,7 @@
     --schedule: #69615d;
     --manual: #69615d;
     --active: #a45643;
+    --header-bg: #302d2b;
 }
 /* ========================================
    Base
@@ -44,14 +45,14 @@ body {
 .app-header {
     padding: 25px 20px;
     color: #ffffff;
-    background: #302d2b;
+    background: var(--header-bg);
     border-bottom: 4px solid var(--accent);
 }
 .header-content {
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1.2fr auto;
+    grid-template-columns: 1fr 1.2fr auto auto;
     align-items: center;
     gap: 28px;
 }
@@ -393,8 +394,9 @@ body {
 /* ========================================
    Dark theme
    ======================================== */
+/* System theme, unless the user explicitly picked the light theme */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
         --bg: #1f1e1c;
         --card: #292725;
         --text: #f2f0ec;
@@ -408,9 +410,98 @@ body {
         --schedule: #625853;
         --manual: #625853;
         --active: #d07a64;
+        --header-bg: #272523;
     }
-    .app-header {
-        background: #272523;
-        border-bottom-color: var(--accent);
+}
+/* Stage 5: the theme picked from the button wins over the system one */
+:root[data-theme="dark"] {
+    --bg: #1f1e1c;
+    --card: #292725;
+    --text: #f2f0ec;
+    --muted: #b7b0aa;
+    --border: #46413d;
+    --input-bg: #302d2a;
+    --accent: #d07a64;
+    --accent-dark: #b45e49;
+    --accent-soft: #433530;
+    --webhook: #625853;
+    --schedule: #625853;
+    --manual: #625853;
+    --active: #d07a64;
+    --header-bg: #272523;
+}
+/* ========================================
+   Stage 5: checkbox and delete button in the card
+   ======================================== */
+.workflow-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+    cursor: pointer;
+}
+.workflow-main input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 9px 0 0;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+.workflow-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+.btn-danger {
+    padding: 6px 12px;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.btn-danger:hover {
+    color: #ffffff;
+    background: var(--accent);
+}
+/* ========================================
+   Stage 5: theme toggle in the header
+   ======================================== */
+.theme-toggle {
+    padding: 6px 12px;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+@media (max-width: 700px) {
+    .theme-toggle {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .app-count {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        padding-left: 0;
+        border-left: none;
+    }
+    .item-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .workflow-actions {
+        justify-content: space-between;
     }
 }
