@@ -27,6 +27,8 @@
     --manual: #69615d;
     --active: #a45643;
     --header-bg: #302d2b;
+    --error-bg: #fbeeea;
+    --error-border: #ebc4b9;
 }
 /* ========================================
    Base
@@ -411,6 +413,8 @@ body {
         --manual: #625853;
         --active: #d07a64;
         --header-bg: #272523;
+    --error-bg: #3b2621;
+    --error-border: #6e3b2f;
     }
 }
 /* Stage 5: the theme picked from the button wins over the system one */
@@ -429,6 +433,8 @@ body {
     --manual: #625853;
     --active: #d07a64;
     --header-bg: #272523;
+    --error-bg: #3b2621;
+    --error-border: #6e3b2f;
 }
 /* ========================================
    Stage 5: checkbox and delete button in the card
@@ -504,4 +510,23 @@ body {
     .workflow-actions {
         justify-content: space-between;
     }
+}
+/* ========================================
+   Stage 6: loading and error states
+   ======================================== */
+.info {
+    padding: 30px 20px;
+    color: var(--muted);
+    text-align: center;
+}
+.error {
+    padding: 10px 12px;
+    color: var(--accent);
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 8px;
+}
+.error code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.9em;
 }

@@ -1,12 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WorkflowList from "./components/WorkflowList.jsx";
-
-// Sample data from README, used only as the starting value of the state
-const INITIAL_WORKFLOWS = [
-  { id: 1, title: "Lead Qualification", active: true, trigger: "webhook" },
-  { id: 2, title: "Daily Sales Report", active: true, trigger: "schedule" },
-  { id: 3, title: "Customer Data Sync", active: false, trigger: "manual" },
-];
+import { fetchWorkflows } from "./api.js";
 
 // Starting theme: the one set in the operating system
 function initialTheme() {
@@ -16,9 +10,34 @@ function initialTheme() {
 }
 
 export default function App() {
-  const [workflows, setWorkflows] = useState(INITIAL_WORKFLOWS);
+  // The data comes from the API, so the list starts empty
+  const [workflows, setWorkflows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [theme, setTheme] = useState(initialTheme);
 
+  // Runs once, after the first render
+  useEffect(() => {
+    let ignore = false; // no state updates if the component is gone in the meantime
+
+    async function load() {
+      try {
+        const data = await fetchWorkflows();
+        if (!ignore) setWorkflows(data);
+      } catch (err) {
+        if (!ignore) setError(err.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    load();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // Changes stay local in Stage 6 and are lost on refresh (saved to the API in Stage 7)
   // Immutable updates: a new array, and a new object for the changed workflow
   function handleToggle(id) {
     setWorkflows((prev) =>
@@ -72,11 +91,20 @@ export default function App() {
             </div>
             <span className="workflow-total">{workflows.length} total</span>
           </div>
-          <WorkflowList
-            workflows={workflows}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-          />
+          {loading && <p className="info">Loading workflows...</p>}
+          {error && (
+            <p className="error" role="alert">
+              Could not load the workflows: {error}. Is <code>npm run api</code>{" "}
+              running?
+            </p>
+          )}
+          {!loading && !error && (
+            <WorkflowList
+              workflows={workflows}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
       <footer className="app-footer">

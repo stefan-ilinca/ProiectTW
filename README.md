@@ -19,9 +19,11 @@ The following sample data will be used across all stages:
 ```
 cd frontend
 npm install
-npm run dev
+npm run api   # terminal 1, http://localhost:3001
+npm run dev   # terminal 2, http://localhost:5173
 ```
-Then open the address printed in the terminal (http://localhost:5173).
+Then open the address printed by `npm run dev` (http://localhost:5173).
+The API address can be changed through `VITE_API_URL` (see `frontend/.env.example`).
 Node.js 20 or newer is required.
 The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be opened directly in a browser.
 ## AI usage
@@ -32,6 +34,7 @@ The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be open
 | Claude Code | Vite project setup, porting the mockup to JSX and troubleshooting npm for Stage 3 |
 | Claude Code | Splitting the card and the list into components with props for Stage 4 |
 | Claude Code | Moving the list into state, toggle and delete handlers, and the light / dark switch for Stage 5 |
+| Claude Code | Serving the data with json-server, loading it with useEffect, and the loading / error states for Stage 6 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
@@ -39,8 +42,9 @@ Details for each stage are available in the `ai-log/` folder.
 - [x] Stage 3: Vite and React project
 - [x] Stage 4: components rendered from data
 - [x] Stage 5: local state and events
-- [ ] Stage 6: loading data from a mock API
-- [ ] Stage 7+: form, backend, database and authentication
+- [x] Stage 6: data from a mock API
+- [ ] Stage 7: form and validation
+- [ ] Stage 8+: backend, database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
@@ -64,6 +68,18 @@ which is what stage 6 and stage 10 fix.
 - `WorkflowList` passes `onToggle` and `onDelete` down unchanged; `WorkflowCard` has a controlled checkbox bound to `active` and a Delete button with an `aria-label` that names the workflow.
 - The header counter is derived from the list on every render, not kept in a separate state.
 - The theme is kept in state and written as `data-theme` on `<html>`; the CSS only redefines the color variables, so the system theme still applies until the user picks one.
+## Stage 6: data from a mock API
+The list is served by json-server from `frontend/db.json`. The app fetches it on load
+and shows a loading state and an error state.
+
+    npm run api   # terminal 1, http://localhost:3001
+    npm run dev   # terminal 2, http://localhost:5173
+
+- `db.json` holds the five workflows under the `workflows` key, so json-server exposes `GET /workflows`. json-server is pinned to `0.17.4`, which keeps numeric ids.
+- `src/api.js` is the only file that calls `fetch`; it reads the address from `VITE_API_URL` (fallback `http://localhost:3001`) and throws when `res.ok` is false.
+- `App` starts with `useState([])` and loads the list in a `useEffect` with `[]`, with `loading` and `error` states and an `ignore` flag in the cleanup.
+- While waiting, the panel shows "Loading workflows..."; when the API is down it shows the error and tells you to run `npm run api`.
+- Toggling and deleting still change only the local state, so they are lost on refresh until Stage 7.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|

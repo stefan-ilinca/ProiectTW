@@ -1,0 +1,9 @@
+{
+  "workflows": [
+    { "id": 1, "title": "Lead Qualification", "active": true, "trigger": "webhook" },
+    { "id": 2, "title": "Daily Sales Report", "active": true, "trigger": "schedule" },
+    { "id": 3, "title": "Customer Data Sync", "active": false, "trigger": "manual" },
+    { "id": 4, "title": "Weekly Invoice Reminder", "active": true, "trigger": "schedule" },
+    { "id": 5, "title": "Support Ticket Escalation", "active": false, "trigger": "webhook" }
+  ]
+}
