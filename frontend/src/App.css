@@ -100,8 +100,8 @@ body {
     margin: 28px auto;
     padding: 0 20px;
     display: grid;
-    /* Stage 3: only the data panel; the second column returns in Stage 7 */
-    grid-template-columns: 1fr;
+    /* Stage 7: the form on the left, the list on the right */
+    grid-template-columns: 1fr 2fr;
     gap: 18px;
     align-items: start;
 }
@@ -529,4 +529,22 @@ body {
 .error code {
     font-family: ui-monospace, Menlo, Consolas, monospace;
     font-size: 0.9em;
+}
+/* ========================================
+   Stage 7: form states
+   ======================================== */
+.item-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.item-form button:disabled:hover {
+    background: var(--accent);
+}
+.item-form input[aria-invalid="true"] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+.item-form .error {
+    margin: 0;
+    font-size: 0.85rem;
 }

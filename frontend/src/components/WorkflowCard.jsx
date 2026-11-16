@@ -24,18 +24,23 @@ export default function WorkflowCard({ workflow, onToggle, onDelete }) {
   const trigger = TRIGGER_LABELS[workflow.trigger];
 
   return (
-    <li className={workflow.active ? "item-card" : "item-card done"}>
+    <li
+      className={workflow.active ? "item-card" : "item-card done"}
+      data-testid="item"
+      data-id={workflow.id}
+    >
       <label className="workflow-main">
         <input
           type="checkbox"
           checked={workflow.active}
           onChange={() => onToggle(workflow.id)}
+          data-testid="item-toggle"
         />
         <div className="workflow-info">
           <div className="workflow-title-row">
             <span className="workflow-icon">{trigger.icon}</span>
             <div>
-              <h3>{workflow.title}</h3>
+              <h3 data-testid="item-title">{workflow.title}</h3>
               <p className="workflow-description">{trigger.description}</p>
             </div>
           </div>
@@ -61,6 +66,7 @@ export default function WorkflowCard({ workflow, onToggle, onDelete }) {
           className="btn-danger"
           onClick={() => onDelete(workflow.id)}
           aria-label={`Delete ${workflow.title}`}
+          data-testid="item-delete"
         >
           Delete
         </button>

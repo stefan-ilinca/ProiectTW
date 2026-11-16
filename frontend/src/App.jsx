@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import WorkflowList from "./components/WorkflowList.jsx";
-import { fetchWorkflows } from "./api.js";
+import WorkflowForm from "./components/WorkflowForm.jsx";
+import {
+  createWorkflow,
+  deleteWorkflow,
+  fetchWorkflows,
+  updateWorkflow,
+} from "./api.js";
 
 // Starting theme: the one set in the operating system
 function initialTheme() {
@@ -37,16 +43,31 @@ export default function App() {
     };
   }, []);
 
-  // Changes stay local in Stage 6 and are lost on refresh (saved to the API in Stage 7)
-  // Immutable updates: a new array, and a new object for the changed workflow
-  function handleToggle(id) {
-    setWorkflows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, active: !w.active } : w))
-    );
+  // Server first, then state: only what was saved reaches the screen.
+  // No try here: the error goes back to the form, which shows it next to the fields.
+  async function handleAdd(workflow) {
+    const created = await createWorkflow(workflow); // the server returns it with an id
+    setWorkflows((prev) => [...prev, created]);
   }
 
-  function handleDelete(id) {
-    setWorkflows((prev) => prev.filter((w) => w.id !== id));
+  async function handleToggle(id) {
+    const workflow = workflows.find((w) => w.id === id);
+    try {
+      // PATCH sends only the changed field; the list gets the object returned by the server
+      const updated = await updateWorkflow(id, { active: !workflow.active });
+      setWorkflows((prev) => prev.map((w) => (w.id === id ? updated : w)));
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await deleteWorkflow(id);
+      setWorkflows((prev) => prev.filter((w) => w.id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   // Theme switch: state for the button, data-theme attribute for the CSS
@@ -83,6 +104,16 @@ export default function App() {
         </div>
       </header>
       <main className="container">
+        <section className="panel create-panel">
+          <div className="section-header">
+            <p className="section-label">AUTOMATION</p>
+            <h2>Create workflow</h2>
+            <p className="section-description">
+              Create a new automation and choose how it will be triggered.
+            </p>
+          </div>
+          <WorkflowForm onAdd={handleAdd} />
+        </section>
         <section className="panel workflows-panel">
           <div className="section-header workflows-heading">
             <div>
@@ -91,14 +122,18 @@ export default function App() {
             </div>
             <span className="workflow-total">{workflows.length} total</span>
           </div>
-          {loading && <p className="info">Loading workflows...</p>}
-          {error && (
-            <p className="error" role="alert">
-              Could not load the workflows: {error}. Is <code>npm run api</code>{" "}
-              running?
+          {loading && (
+            <p className="info" data-testid="loading">
+              Loading workflows...
             </p>
           )}
-          {!loading && !error && (
+          {error && (
+            <p className="error" role="alert" data-testid="error">
+              Request failed: {error}. Is <code>npm run api</code> running?
+            </p>
+          )}
+          {/* No !error here: if a toggle fails, the list stays under the message */}
+          {!loading && (
             <WorkflowList
               workflows={workflows}
               onToggle={handleToggle}

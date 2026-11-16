@@ -4,7 +4,11 @@ import WorkflowCard from "./WorkflowCard.jsx";
 // and passed on to every card unchanged.
 export default function WorkflowList({ workflows, onToggle, onDelete }) {
   if (workflows.length === 0) {
-    return <p className="empty">No workflows available.</p>;
+    return (
+      <p className="empty" data-testid="empty">
+        No workflows available.
+      </p>
+    );
   }
 
   return (

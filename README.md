@@ -35,6 +35,7 @@ The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be open
 | Claude Code | Splitting the card and the list into components with props for Stage 4 |
 | Claude Code | Moving the list into state, toggle and delete handlers, and the light / dark switch for Stage 5 |
 | Claude Code | Serving the data with json-server, loading it with useEffect, and the loading / error states for Stage 6 |
+| Claude Code | The controlled create form with validation, saving add / toggle / delete through the API, and the data-testid markers for Stage 7 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
@@ -43,8 +44,9 @@ Details for each stage are available in the `ai-log/` folder.
 - [x] Stage 4: components rendered from data
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
-- [ ] Stage 7: form and validation
-- [ ] Stage 8+: backend, database and authentication
+- [x] Stage 7: form and validation
+- [ ] Stage 8: routing and detail page
+- [ ] Stage 9+: backend, database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
@@ -80,6 +82,16 @@ and shows a loading state and an error state.
 - `App` starts with `useState([])` and loads the list in a `useEffect` with `[]`, with `loading` and `error` states and an `ignore` flag in the cleanup.
 - While waiting, the panel shows "Loading workflows..."; when the API is down it shows the error and tells you to run `npm run api`.
 - Toggling and deleting still change only the local state, so they are lost on refresh until Stage 7.
+## Stage 7: form and validation
+Workflows can be created from the page. The form is controlled and validated,
+and every change (add, toggle, delete) goes to the API before it shows up
+in the list, so all changes survive a refresh.
+- `src/api.js` has a shared `request` helper (JSON header, `res.ok` check, empty body on 204) and one function per operation: `fetchWorkflows`, `createWorkflow` (POST), `updateWorkflow` (PATCH) and `deleteWorkflow` (DELETE).
+- `WorkflowForm` keeps the name and the trigger in state (`value` + `onChange`). It rejects an empty name, a name over 100 characters and a trigger outside Webhook / Schedule / Manual, and shows the message under the fields instead of using `alert`.
+- While saving, the button is disabled and reads "Saving..."; the fields are cleared only after the server confirms, so a failed save keeps the text.
+- `App` adds the object returned by the server (with its new id) and replaces a toggled workflow with the server's copy. New workflows start inactive.
+- The form is back in the left column, next to the list, as in the Stage 1 mockup; below 700px the panels stack.
+- `tw.json` in the repository root and the `data-testid` attributes (`item`, `item-title`, `item-toggle`, `item-delete`, `empty`, `form`, `form-title`, `form-trigger`, `form-submit`, `form-error`, `loading`, `error`) are for the automated check.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|

@@ -1,0 +1,6 @@
+{
+  "resource": "workflows",
+  "title": "title",
+  "done": "active",
+  "sample": { "trigger": "schedule" }
+}
