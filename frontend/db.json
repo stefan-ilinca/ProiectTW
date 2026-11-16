@@ -1,9 +1,9 @@
 {
   "workflows": [
-    { "id": 1, "title": "Lead Qualification", "active": true, "trigger": "webhook" },
-    { "id": 2, "title": "Daily Sales Report", "active": true, "trigger": "schedule" },
-    { "id": 3, "title": "Customer Data Sync", "active": false, "trigger": "manual" },
-    { "id": 4, "title": "Weekly Invoice Reminder", "active": true, "trigger": "schedule" },
-    { "id": 5, "title": "Support Ticket Escalation", "active": false, "trigger": "webhook" }
+    { "id": 1, "title": "Lead Qualification", "active": true, "trigger": "webhook", "createdAt": "2026-10-02T09:15:00.000Z" },
+    { "id": 2, "title": "Daily Sales Report", "active": true, "trigger": "schedule", "createdAt": "2026-10-05T07:30:00.000Z" },
+    { "id": 3, "title": "Customer Data Sync", "active": false, "trigger": "manual", "createdAt": "2026-10-09T13:45:00.000Z" },
+    { "id": 4, "title": "Weekly Invoice Reminder", "active": true, "trigger": "schedule", "createdAt": "2026-10-14T08:00:00.000Z" },
+    { "id": 5, "title": "Support Ticket Escalation", "active": false, "trigger": "webhook", "createdAt": "2026-10-20T16:20:00.000Z" }
   ]
 }

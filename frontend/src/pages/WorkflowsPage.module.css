@@ -1,0 +1,31 @@
+/* The form on the left, the list on the right */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 18px;
+    align-items: start;
+}
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.summary {
+    padding: 4px 8px;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .heading {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

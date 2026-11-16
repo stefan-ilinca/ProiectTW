@@ -1,11 +1,7 @@
 import { useState } from "react";
+import { TRIGGERS } from "../constants.js";
+import styles from "./WorkflowForm.module.css";
 
-// The fixed trigger values, the same ones stored in db.json
-const TRIGGERS = [
-  { value: "webhook", label: "Webhook" },
-  { value: "schedule", label: "Schedule" },
-  { value: "manual", label: "Manual" },
-];
 const TITLE_MAX = 100;
 
 // Controlled form: React state is the source of truth for every field.
@@ -40,7 +36,12 @@ export default function WorkflowForm({ onAdd }) {
     setSubmitting(true);
     try {
       // New workflows start inactive until they are switched on from the list
-      await onAdd({ title: title.trim(), trigger, active: false });
+      await onAdd({
+        title: title.trim(),
+        trigger,
+        active: false,
+        createdAt: new Date().toISOString(),
+      });
       // Cleared only after the server confirmed the save
       setTitle("");
       setTrigger("webhook");
@@ -53,7 +54,7 @@ export default function WorkflowForm({ onAdd }) {
 
   return (
     <form
-      className="item-form"
+      className={styles.form}
       onSubmit={handleSubmit}
       noValidate
       data-testid="form"
@@ -89,7 +90,12 @@ export default function WorkflowForm({ onAdd }) {
           {error}
         </p>
       )}
-      <button type="submit" disabled={submitting} data-testid="form-submit">
+      <button
+        type="submit"
+        className="btn"
+        disabled={submitting}
+        data-testid="form-submit"
+      >
         {submitting ? "Saving..." : "Create workflow"}
       </button>
     </form>

@@ -1,66 +1,57 @@
-// A single workflow from the list, received through props.
-// Display labels are kept separate from the values stored in the data.
-const TRIGGER_LABELS = {
-  webhook: {
-    label: "Webhook",
-    icon: "↗",
-    description: "Runs when an incoming request is received.",
-  },
-  schedule: {
-    label: "Schedule",
-    icon: "◷",
-    description: "Runs automatically at a set time.",
-  },
-  manual: {
-    label: "Manual",
-    icon: "↻",
-    description: "Runs only when started by hand.",
-  },
-};
+import { Link } from "react-router-dom";
+import { TRIGGER_LABELS } from "../constants.js";
+import styles from "./WorkflowCard.module.css";
 
+// A single workflow from the list, received through props.
 // The card does not change the data: it only reports the click
-// through onToggle and onDelete, received from App.
+// through onToggle and onDelete, received from the page.
 export default function WorkflowCard({ workflow, onToggle, onDelete }) {
   const trigger = TRIGGER_LABELS[workflow.trigger];
 
   return (
     <li
-      className={workflow.active ? "item-card" : "item-card done"}
+      className={workflow.active ? styles.card : `${styles.card} ${styles.done}`}
       data-testid="item"
       data-id={workflow.id}
     >
-      <label className="workflow-main">
+      {/* A div, not a label: the title is now a link to the detail page */}
+      <div className={styles.main}>
         <input
           type="checkbox"
           checked={workflow.active}
           onChange={() => onToggle(workflow.id)}
+          aria-label={`Active: ${workflow.title}`}
           data-testid="item-toggle"
         />
-        <div className="workflow-info">
-          <div className="workflow-title-row">
-            <span className="workflow-icon">{trigger.icon}</span>
+        <div className={styles.info}>
+          <div className={styles.titleRow}>
+            <span className={styles.icon}>{trigger.icon}</span>
             <div>
-              <h3 data-testid="item-title">{workflow.title}</h3>
-              <p className="workflow-description">{trigger.description}</p>
+              <Link
+                to={`/workflows/${workflow.id}`}
+                className={styles.title}
+                data-testid="item-link"
+              >
+                {workflow.title}
+              </Link>
+              <p className={styles.description}>{trigger.description}</p>
             </div>
           </div>
-          <div className="workflow-meta">
+          <div className={styles.meta}>
             <span className={`badge badge-${workflow.trigger}`}>
               {trigger.label}
             </span>
           </div>
         </div>
-      </label>
-      <div className="workflow-actions">
+      </div>
+      <div className={styles.actions}>
         <div
           className={
-            workflow.active ? "workflow-status active-status" : "workflow-status"
+            workflow.active ? `${styles.status} ${styles.on}` : styles.status
           }
         >
-          {workflow.active && <span className="status-dot"></span>}
-          <span className="status">
-            {workflow.active ? "Active" : "Inactive"}
-          </span>
+          {workflow.active && <span className={styles.dot}></span>}
+          <span>{workflow.active ? "Active" : "Inactive"}</span>
         </div>
         <button
           className="btn-danger"

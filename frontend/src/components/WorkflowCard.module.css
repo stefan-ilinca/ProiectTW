@@ -1,0 +1,121 @@
+/* One workflow in the list */
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+.card:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+}
+.main {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+.main input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 9px 0 0;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+.info {
+    min-width: 0;
+}
+.titleRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 4px;
+    font-weight: 800;
+}
+.title {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+}
+.title:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+.description {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+.meta {
+    margin-top: 12px;
+    margin-left: 48px;
+}
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+.status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+.on {
+    color: var(--active);
+    font-weight: 600;
+}
+.dot {
+    width: 7px;
+    height: 7px;
+    background: var(--active);
+    border-radius: 50%;
+}
+/* Inactive workflow */
+.done {
+    opacity: 0.58;
+}
+.done .title {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+@media (max-width: 700px) {
+    .card {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        gap: 12px;
+    }
+    .description {
+        max-width: 230px;
+    }
+    .meta {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .actions {
+        justify-content: space-between;
+    }
+}

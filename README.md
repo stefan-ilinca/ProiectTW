@@ -36,6 +36,7 @@ The static mockup from Stages 1 and 2 is kept in `mockup/` and can still be open
 | Claude Code | Moving the list into state, toggle and delete handlers, and the light / dark switch for Stage 5 |
 | Claude Code | Serving the data with json-server, loading it with useEffect, and the loading / error states for Stage 6 |
 | Claude Code | The controlled create form with validation, saving add / toggle / delete through the API, and the data-testid markers for Stage 7 |
+| Claude Code | React Router pages, the shared layout, the detail and 404 pages, and moving the styles to CSS Modules for Stage 8 |
 Details for each stage are available in the `ai-log/` folder.
 ## Status
 - [x] Stage 1: static mockup
@@ -45,8 +46,9 @@ Details for each stage are available in the `ai-log/` folder.
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
 - [x] Stage 7: form and validation
-- [ ] Stage 8: routing and detail page
-- [ ] Stage 9+: backend, database and authentication
+- [x] Stage 8: routing and detail page
+- [ ] Stage 9: own backend with Express
+- [ ] Stage 10+: database and authentication
 ## Stage 2: data logic in JavaScript
 The application data is moved into a JavaScript file, using an array of objects with unique IDs.
 The logic is kept separate from the HTML and CSS: it does not touch the DOM, it does not handle events, and it only prints results to the browser console.
@@ -92,6 +94,23 @@ in the list, so all changes survive a refresh.
 - `App` adds the object returned by the server (with its new id) and replaces a toggled workflow with the server's copy. New workflows start inactive.
 - The form is back in the left column, next to the list, as in the Stage 1 mockup; below 700px the panels stack.
 - `tw.json` in the repository root and the `data-testid` attributes (`item`, `item-title`, `item-toggle`, `item-delete`, `empty`, `form`, `form-title`, `form-trigger`, `form-submit`, `form-error`, `loading`, `error`) are for the automated check.
+## Stage 8: routing and detail page
+Three pages behind React Router: the list, a detail page at `/workflows/:id`,
+and an about page, plus a 404 page. Component styles moved to CSS Modules.
+| Route | Page |
+|---|---|
+| `/` | `WorkflowsPage`: the create form and the list |
+| `/workflows/:id` | `WorkflowDetailPage`: one workflow, loaded with `fetchWorkflow(id)` |
+| `/about` | `AboutPage`: what FlowForge is |
+| `*` | `NotFoundPage`: any other address |
+- `main.jsx` wraps the app in `BrowserRouter`; `App.jsx` only holds the route map.
+- `Layout` holds the header, the navigation (`NavLink`, with `end` on `/`), the theme button and the footer, and draws the current page in `<Outlet />`. The workflow counter moved from the header into the list panel.
+- The title in each card is a `Link` to the detail page (`data-testid="item-link"`); the checkbox has its own `aria-label` because it is no longer inside a `<label>`.
+- The detail page reads the id with `useParams`, reloads when it changes (`[id]`), and shows the trigger with its description, the status, the creation date and the id. A missing id (for example `/workflows/999`) shows an error and a link back.
+- New workflows are saved with a `createdAt` date; the five sample workflows in `db.json` received one too.
+- Trigger values, labels, icons and descriptions moved to `src/constants.js`, shared by the form, the card and the detail page.
+- `App.css` became `index.css` and keeps only the color variables (light, system dark and button dark), base elements, panels, messages, buttons and badges. Every component and page with its own styles has a `.module.css` next to it.
+- On the deployed server, refreshing a detail URL needs a fallback to `index.html`; the Vite dev and preview servers already do this.
 ## Stage 1 checklist
 | ID | Requirement | Where | How to check |
 |---|---|---|---|

@@ -20,6 +20,10 @@ export function fetchWorkflows() {
   return request("/workflows");
 }
 
+export function fetchWorkflow(id) {
+  return request(`/workflows/${id}`);
+}
+
 export function createWorkflow(workflow) {
   return request("/workflows", {
     method: "POST",

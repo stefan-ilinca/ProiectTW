@@ -1,4 +1,5 @@
 import WorkflowCard from "./WorkflowCard.jsx";
+import styles from "./WorkflowList.module.css";
 
 // The whole list and the two actions, received through props
 // and passed on to every card unchanged.
@@ -12,7 +13,7 @@ export default function WorkflowList({ workflows, onToggle, onDelete }) {
   }
 
   return (
-    <ul className="item-list">
+    <ul className={styles.list}>
       {workflows.map((workflow) => (
         <WorkflowCard
           key={workflow.id}

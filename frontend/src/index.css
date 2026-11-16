@@ -1,0 +1,206 @@
+/* ========================================
+   FlowForge - global styles
+   Only variables, base elements and shared classes live here;
+   component styles are in the *.module.css files next to each component.
+   ======================================== */
+* {
+    box-sizing: border-box;
+}
+/* ========================================
+   Theme variables
+   ======================================== */
+:root {
+    --bg: #f3f2ef;
+    --card: #ffffff;
+    --text: #292725;
+    --muted: #706c68;
+    --accent: #a45643;
+    --accent-dark: #874230;
+    --accent-soft: #f4eae6;
+    --border: #e1ded9;
+    --input-bg: #ffffff;
+    --webhook: #69615d;
+    --schedule: #69615d;
+    --manual: #69615d;
+    --active: #a45643;
+    --header-bg: #302d2b;
+    --error-bg: #fbeeea;
+    --error-border: #ebc4b9;
+}
+/* System theme, unless the user explicitly picked the light theme */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1f1e1c;
+        --card: #292725;
+        --text: #f2f0ec;
+        --muted: #b7b0aa;
+        --border: #46413d;
+        --input-bg: #302d2a;
+        --accent: #d07a64;
+        --accent-dark: #b45e49;
+        --accent-soft: #433530;
+        --webhook: #625853;
+        --schedule: #625853;
+        --manual: #625853;
+        --active: #d07a64;
+        --header-bg: #272523;
+        --error-bg: #3b2621;
+        --error-border: #6e3b2f;
+    }
+}
+/* The theme picked from the button wins over the system one */
+:root[data-theme="dark"] {
+    --bg: #1f1e1c;
+    --card: #292725;
+    --text: #f2f0ec;
+    --muted: #b7b0aa;
+    --border: #46413d;
+    --input-bg: #302d2a;
+    --accent: #d07a64;
+    --accent-dark: #b45e49;
+    --accent-soft: #433530;
+    --webhook: #625853;
+    --schedule: #625853;
+    --manual: #625853;
+    --active: #d07a64;
+    --header-bg: #272523;
+    --error-bg: #3b2621;
+    --error-border: #6e3b2f;
+}
+/* ========================================
+   Base
+   ======================================== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+a {
+    color: var(--accent);
+}
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+/* ========================================
+   Panels and their headings, used by every page
+   ======================================== */
+.panel {
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+}
+.create-panel {
+    border-top: 3px solid var(--accent);
+}
+.section-header {
+    margin-bottom: 24px;
+}
+.section-label {
+    margin: 0 0 5px;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+.section-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+.section-description {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+/* ========================================
+   Messages: loading, empty list, errors
+   ======================================== */
+.info {
+    color: var(--muted);
+}
+.empty {
+    padding: 30px 20px;
+    color: var(--muted);
+    text-align: center;
+}
+.error {
+    padding: 10px 12px;
+    color: var(--accent);
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: 8px;
+}
+.error code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.9em;
+}
+/* ========================================
+   Buttons
+   ======================================== */
+.btn {
+    padding: 12px 16px;
+    color: #ffffff;
+    background: var(--accent);
+    border: none;
+    border-radius: 4px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.btn:hover {
+    background: var(--accent-dark);
+}
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.btn:disabled:hover {
+    background: var(--accent);
+}
+.btn-danger {
+    padding: 6px 12px;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.btn-danger:hover {
+    color: #ffffff;
+    background: var(--accent);
+}
+/* ========================================
+   Trigger badges, used in the card and the detail page
+   ======================================== */
+.badge {
+    display: inline-block;
+    padding: 3px 7px;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 0.67rem;
+    font-weight: 750;
+    letter-spacing: 0.02em;
+}
+.badge-webhook {
+    background: var(--webhook);
+}
+.badge-schedule {
+    background: var(--schedule);
+}
+.badge-manual {
+    background: var(--manual);
+}
+@media (max-width: 700px) {
+    .panel {
+        padding: 18px;
+    }
+}
